@@ -1,4 +1,4 @@
-﻿#include <systemc.h>
+#include <systemc.h>
 #include "layer_test.h"
 
 void partitionNetwork::layer_ev()
@@ -7,7 +7,7 @@ void partitionNetwork::layer_ev()
 
         for (int j = 0; j < numOfNeurons1; j++) {
             for (int i = 0; i < numOfInputs1; ++i) {
-                layerWeights1[j][i].write(i * j + 1); 
+                layerWeights1[j][i].write(i * j/2 + 1); 
             }
         }
 
@@ -37,7 +37,8 @@ void partitionNetwork::layer_ev()
                 wait(SC_ZERO_TIME);
             }
         }
-
+        // layer1 is started 
+        cout << " layer1 is started " << endl;
         layer1->layerStart.notify(SC_ZERO_TIME);
         wait(layer1->layerDone);
 
@@ -60,7 +61,8 @@ void partitionNetwork::layer_ev()
                 wait(SC_ZERO_TIME);
             }
         }
-
+        // layer2 is started 
+        cout << " layer2 is started " << endl;
         layer2->layerStart.notify(SC_ZERO_TIME);
         wait(layer2->layerDone);
 
