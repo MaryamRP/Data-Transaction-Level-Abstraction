@@ -33,6 +33,7 @@ void spatialNeuron<numOfInputs>::neuronController()
         int temp = 0;
         for (int i = 0; i <numOfInputs; i++) {
             temp += inputs[i].read() * weights[i].read();
+            //cout << "temp = " << temp << ", " << this->name() << endl;
         }
 
         // Apply ReLU activation function
@@ -41,16 +42,10 @@ void spatialNeuron<numOfInputs>::neuronController()
         }
 
         result[0].write(temp);
+        wait(SC_ZERO_TIME);
+        cout << "result = " << result[0].read() << ", " << this->name() << endl;
 
         neuronDone.notify();
         wait();
     }
 }
-
-
-
-
-
-
-
-
